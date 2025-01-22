@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2015 MediaTek Inc.
+ * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -2111,7 +2112,7 @@ GED_ERROR ged_dvfs_probe_signal(int signo)
 	}
 
 	if (t != NULL) {
-		send_sig_info(signo, &info, t);
+		/* send_sig_info(signo, &info, t); */
 		return GED_OK;
 	} else {
 		g_probe_pid = GED_NO_UM_SERVICE;

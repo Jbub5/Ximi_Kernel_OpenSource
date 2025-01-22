@@ -3,6 +3,7 @@
  * mddp_dev.h - Structure/API of MDDP device node control.
  *
  * Copyright (c) 2020 MediaTek Inc.
+ * Copyright (C) 2021 XiaoMi, Inc.
  */
 
 #ifndef __MDDP_DEV_H

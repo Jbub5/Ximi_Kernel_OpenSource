@@ -3,6 +3,7 @@
  * mddp_if.c - Interface API between MDDP and other kernel module.
  *
  * Copyright (c) 2020 MediaTek Inc.
+ * Copyright (C) 2021 XiaoMi, Inc.
  */
 
 #include <linux/module.h>

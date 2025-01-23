@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020 MediaTek Inc.
+ * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -61,10 +62,6 @@ extern "C" {
 #else
 #include "mtk_unified_power_mt6885.h"
 #endif
-#endif
-
-#if defined(CONFIG_MACH_MT6893)
-#include "mtk_unified_power_mt6893.h"
 #endif
 
 #if defined(CONFIG_MACH_MT6893)

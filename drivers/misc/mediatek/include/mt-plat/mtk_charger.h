@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2016 MediaTek Inc.
- * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -116,6 +115,9 @@ extern int charger_manager_enable_chg_type_det(
 	bool en);
 extern int charger_manager_get_ibus(int *ibus);
 extern int charger_manager_set_input_suspend(int suspend);
+/*K19A-75 charge by wangchao at 2021/4/15 start*/
+extern int charger_manager_set_hiz_enable(int hiz_enable);
+/*K19A-75 charge by wangchao at 2021/4/15 end*/
 extern int charger_manager_is_input_suspend(void);
 extern int charger_manager_get_prop_system_temp_level(void);
 extern int charger_manager_get_prop_system_temp_level_max(void);

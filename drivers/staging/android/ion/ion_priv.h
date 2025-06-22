@@ -2,7 +2,6 @@
  * drivers/staging/android/ion/ion_priv.h
  *
  * Copyright (C) 2011 MediaTek, Inc.
- * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -188,6 +187,7 @@ struct ion_handle_debug {
  */
 struct ion_handle {
 	struct kref ref;
+	unsigned int user_ref_count;
 	struct ion_client *client;
 	struct ion_buffer *buffer;
 	struct rb_node node;
@@ -549,4 +549,8 @@ extern atomic64_t page_sz_cnt;
 
 int ion_share_dma_buf_fd_nolock(struct ion_client *client,
 				struct ion_handle *handle);
+
+struct ion_handle *pass_to_user(struct ion_handle *handle);
+void user_ion_free_nolock(struct ion_client *client, struct ion_handle *handle);
+
 #endif /* _ION_PRIV_H */

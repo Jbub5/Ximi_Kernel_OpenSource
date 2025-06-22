@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2010 Trusted Logic S.A.
- * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -88,7 +87,7 @@ extern int force_sig_info(int, struct siginfo *, struct task_struct *);
 
 /* VEN is kept ON all the time if you define the macro VEN_ALWAYS_ON.
 Used for SN100 usecases */
-#define VEN_ALWAYS_ON
+//#define VEN_ALWAYS_ON
 /* Macro added to disable SVDD power toggling */
 /* #define JCOP_4X_VALIDATION */
 

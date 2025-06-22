@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2015 MediaTek Inc.
- * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -27,6 +26,7 @@ s32 mdp_ioctl_alloc_readback_slots(void *fp, unsigned long param);
 s32 mdp_ioctl_free_readback_slots(void *fp, unsigned long param);
 s32 mdp_ioctl_read_readback_slots(unsigned long param);
 s32 mdp_ioctl_simulate(unsigned long param);
+void mdp_ioctl_free_job_by_node(void *node);
 void mdp_ioctl_free_readback_slots_by_node(void *fp);
 
 

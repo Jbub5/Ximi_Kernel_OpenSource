@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2013-2016, Shenzhen Huiding Technology Co., Ltd.
- * Copyright (C) 2021 XiaoMi, Inc.
  * All Rights Reserved.
  */
 #ifndef __GF_SPI_TEE_H
@@ -29,7 +28,7 @@ extern u8 g_debug_level;
 
 #define gf_debug(level, fmt, args...) do { \
 			if (g_debug_level >= level) {\
-				pr_warn("[gf] " fmt, ##args); \
+				pr_err("[gf] " fmt, ##args); \
 			} \
 		} while (0)
 
@@ -54,6 +53,9 @@ extern u8 g_debug_level;
 #define GF_KEY_INPUT_POWER		KEY_POWER
 #define GF_KEY_INPUT_CAMERA		KEY_CAMERA
 #define GF_KEY_INPUT_KPENTER            KEY_KPENTER
+//#K19A code for HQ-124340 by shicheng at 2021.5.20 start
+#define GF_KEY_INPUT_DOUBLE		BTN_C
+//#K19A code for HQ-124340 by shicheng at 2021.5.20 end
 
 typedef enum gf_nav_event {
 	GF_NAV_NONE = 0,
@@ -69,6 +71,7 @@ typedef enum gf_nav_event {
 	GF_NAV_DOUBLE_CLICK,
 } gf_nav_event_t;
 
+//#K19A code for HQ-124340 by shicheng at 2021.5.20 start
 typedef enum gf_key_event {
 	GF_KEY_NONE = 0,
 	GF_KEY_HOME,
@@ -76,7 +79,9 @@ typedef enum gf_key_event {
 	GF_KEY_MENU,
 	GF_KEY_BACK,
 	GF_KEY_CAMERA,
+	GF_KEY_HOME_DOUBLE_CLICK,
 } gf_key_event_t;
+//#K19A code for HQ-124340 by shicheng at 2021.5.20 start
 
 struct gf_key {
 	enum gf_key_event key;
@@ -220,7 +225,7 @@ struct gf_device {
 #ifdef CONFIG_OF
 	struct pinctrl *pinctrl_gpios;
 	struct pinctrl_state *pins_irq;
-	struct pinctrl_state *pins_miso_spi, *pins_miso_pullhigh, *pins_miso_pulllow, *pins_spi_cs_high, *pins_spi_cs_low;
+	struct pinctrl_state *pins_miso_spi, *pins_miso_pullhigh, *pins_miso_pulllow, *pins_spi_cs_high, *pins_spi_cs_low, *pins_spi_mode;
 	struct pinctrl_state *pins_reset_high, *pins_reset_low;
 #endif
 };

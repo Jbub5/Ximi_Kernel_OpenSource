@@ -24,7 +24,6 @@
  *
  *
  * Copyright (c) 2015 Fingerprint Cards AB <tech@fingerprints.com>
- * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License Version 2
@@ -52,7 +51,7 @@
 #include "mtk_spi_hal.h"
 #endif
 
-/* begin modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 start */
 #ifdef CONFIG_HAS_EARLYSUSPEND
 #include <linux/earlysuspend.h>
 #else
@@ -60,7 +59,7 @@
 #endif
 #include <linux/fb.h>
 #include "../../../misc/mediatek/video/include/mtkfb.h"
-/* end modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 end */
 
 #ifndef CONFIG_SPI_MT65XX
 #include "mtk_gpio.h"
@@ -72,14 +71,14 @@
 #endif
 #include  <linux/regulator/consumer.h>
 
-/* begin modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 start */
 #include "../../../misc/mediatek/base/power/include/mtk_ppm_api.h"
 #include <mt-plat/cpu_ctrl.h>
 #include <linux/pm_qos.h>
 #include <helio-dvfsrc-opp.h>
 
 #define BSP_CERVINO_CLUSTER_NUMBERS  2
-/* end modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 end */
 
 #define FPC1022_RESET_LOW_US 5000
 #define FPC1022_RESET_HIGH1_US 100
@@ -92,7 +91,7 @@
 //#define FPC1021_CHIP 0x0210
 //#define FPC1021_CHIP_MASK_SENSOR_TYPE 0xfff0
 #define FPC1022_CHIP 0x1000
-#define FPC1022_CHIP_MASK_SENSOR_TYPE 0xff00
+#define FPC1022_CHIP_MASK_SENSOR_TYPE 0xf000
 
 #define GPIO_GET(pin) __gpio_get_value(pin)	//get input pin value
 
@@ -100,17 +99,17 @@
 //void mt_spi_enable_clk(struct mt_spi_t *ms);
 //void mt_spi_disable_clk(struct mt_spi_t *ms);
 
-/* begin modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 start */
 #define FP_UNLOCK_REJECTION_TIMEOUT 1500
-/* end modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 end */
 
 struct regulator *regu_buck;
 
-/* begin modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 start */
 struct ppm_limit_data fingerprint_freq_to_set[BSP_CERVINO_CLUSTER_NUMBERS];
 struct ppm_limit_data fingerprint_freq_to_release[BSP_CERVINO_CLUSTER_NUMBERS];
 static struct pm_qos_request fpc_fingerprint_ddr_req;
-/* end modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 end */
 
 #ifdef CONFIG_SPI_MT65XX
 extern void mt_spi_enable_master_clk(struct spi_device *spidev);
@@ -137,8 +136,6 @@ struct fpc1022_data {
 	struct pinctrl_state *st_irq;	//xpt
 	struct pinctrl_state *st_rst_l;
 	struct pinctrl_state *st_rst_h;
-	struct pinctrl_state *st_spi_cs_l;
-	struct pinctrl_state *st_spi_cs_h;
 	//struct pinctrl_state *pins_miso_spi;
 
 	struct input_dev *idev;
@@ -150,7 +147,7 @@ struct fpc1022_data {
 	bool wakeup_enabled;
 	struct wakeup_source *ttw_wl;
 
-/* begin modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 start */
 #ifdef CONFIG_HAS_EARLYSUSPEND
 	struct early_suspend early_suspend;
 #else
@@ -159,7 +156,7 @@ struct fpc1022_data {
 	bool fb_black;
 	bool wait_finger_down;
 	struct work_struct work;
-/* end modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 end */
 
 };
 int fp_idx_ic_exist;
@@ -387,7 +384,7 @@ static ssize_t fpc_ic_is_exist(struct device *device,
 
 static DEVICE_ATTR(fpid_get, S_IRUSR | S_IWUSR, fpc_ic_is_exist, NULL);
 
-/* begin modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 start */
 static ssize_t fingerdown_wait_set(struct device *device,
 				struct device_attribute *attr,
 				const char *buf, size_t count)
@@ -411,7 +408,7 @@ static ssize_t fingerdown_wait_set(struct device *device,
 }
 
 static DEVICE_ATTR(fingerdown_wait, S_IWUSR, NULL, fingerdown_wait_set);
-/* end modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 end */
 
 
 static struct attribute *attributes[] = {
@@ -422,9 +419,9 @@ static struct attribute *attributes[] = {
 	&dev_attr_irq.attr,
 	&dev_attr_fpid_get.attr,
 
-	/* begin modify for unlock speed */
+	/* K19A code for HQ-145238 by shicheng at 2021.7.12 start */
 	&dev_attr_fingerdown_wait.attr,
-	/* end modify for unlock speed */
+	/* K19A code for HQ-145238 by shicheng at 2021.7.12 end */
 
 	NULL
 };
@@ -433,7 +430,7 @@ static const struct attribute_group attribute_group = {
 	.attrs = attributes,
 };
 
-/* begin modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 start */
 static int fpc_fingerprint_freq_set(void)
 {
 	int i, cluster_num;
@@ -506,7 +503,7 @@ static void notification_work(struct work_struct *work)
 	fpc_fingerprint_vcorefs_release();
 	printk("notification_work fpc unblank end\n");
 }
-/* end modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 end */
 
 static irqreturn_t fpc1022_irq_handler(int irq, void *handle)
 {
@@ -521,21 +518,21 @@ static irqreturn_t fpc1022_irq_handler(int irq, void *handle)
 	__pm_wakeup_event(fpc1022->ttw_wl, msecs_to_jiffies(FPC_TTW_HOLD_TIME));
 	/* } */
 
-	/* begin modify for unlock speed */
+	/* K19A code for HQ-145238 by shicheng at 2021.7.12 start */
 	printk("%s fastScreenOn wait_finger_down = %d, fb_black = %d \n", __func__,
 			fpc1022->wait_finger_down, fpc1022->fb_black);
 	if (fpc1022->wait_finger_down && fpc1022->fb_black) {
 			fpc1022->wait_finger_down = false;
 			schedule_work(&fpc1022->work);
 	}
-	/* end modify for unlock speed */
+	/* K19A code for HQ-145238 by shicheng at 2021.7.12 end */
 
 	sysfs_notify(&fpc1022->dev->kobj, NULL, dev_attr_irq.attr.name);
 
 	return IRQ_HANDLED;
 }
 
-/* begin modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 start */
 #ifdef CONFIG_HAS_EARLYSUSPEND
 static void fpc_early_suspend(struct early_suspend *handler)
 {
@@ -592,7 +589,7 @@ static int fpc_fb_notifier_callback(struct notifier_block *self,
 	return retval;
 }
 #endif
-/* end modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 end */
 
 static int fpc1022_platform_probe(struct platform_device *pldev)
 {
@@ -662,24 +659,6 @@ static int fpc1022_platform_probe(struct platform_device *pldev)
 		dev_err(dev, "pinctrl err, rst_low\n");
 		goto err_lookup_state;
 	}
-
-	fpc1022->st_spi_cs_h = pinctrl_lookup_state(fpc1022->pinctrl, "spi_cs_high");
-	if (IS_ERR(fpc1022->st_spi_cs_h)) {
-		ret = PTR_ERR(fpc1022->st_spi_cs_h);
-		dev_err(dev, "pinctrl err, st_spi_cs_h\n");
-		goto err_lookup_state;
-	}
-	fpc1022->st_spi_cs_l = pinctrl_lookup_state(fpc1022->pinctrl, "spi_cs_low");
-	if (IS_ERR(fpc1022->st_spi_cs_l)) {
-		ret = PTR_ERR(fpc1022->st_spi_cs_l);
-		dev_err(dev, "pinctrl err, st_spi_cs_l\n");
-		goto err_lookup_state;
-	}
-
-	mdelay(10);
-	//set cs from gpio mode to spi mode
-	pinctrl_select_state(fpc1022->pinctrl, fpc1022->st_spi_cs_h);
-
 	fpc1022_get_irqNum(fpc1022);
 
 	ret = of_property_read_u32(np, "fpc,event-type", &val);
@@ -740,12 +719,12 @@ static int fpc1022_platform_probe(struct platform_device *pldev)
 	/* Request that the interrupt should be wakeable */
 	enable_irq_wake(fpc1022->irq_num);
 	fpc1022->ttw_wl = wakeup_source_register(dev, "fpc_ttw_wl");
-	/* begin modify for unlock speed */
+	/* K19A code for HQ-145238 by shicheng at 2021.7.12 start */
 	pm_qos_add_request(&fpc_fingerprint_ddr_req, PM_QOS_DDR_OPP, PM_QOS_DDR_OPP_DEFAULT_VALUE);
-	/* end modify for unlock speed */
+	/* K19A code for HQ-145238 by shicheng at 2021.7.12 end */
 
 
-/* begin modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 start */
 #if defined(CONFIG_HAS_EARLYSUSPEND)
 	dev_info(dev, "%s : register_early_suspend\n", __func__);
 	fpc1022->early_suspend.level = (EARLY_SUSPEND_LEVEL_DISABLE_FB - 1);
@@ -761,7 +740,7 @@ static int fpc1022_platform_probe(struct platform_device *pldev)
 	fpc1022->fb_black = false;
 	fpc1022->wait_finger_down = false;
 	INIT_WORK(&fpc1022->work, notification_work);
-/* end modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 end */
 
 	ret = sysfs_create_group(&dev->kobj, &attribute_group);
 	if (ret) {
@@ -769,10 +748,11 @@ static int fpc1022_platform_probe(struct platform_device *pldev)
 		goto err_create_sysfs;
 	}
 
-#ifdef CONFIG_HQ_SYSFS_SUPPORT
+	#ifdef CONFIG_HQ_SYSFS_SUPPORT
 	dev_info(dev, "%s hq_regiser_hw_info\n", __func__);
 	hq_regiser_hw_info(HWID_FP, "FPC");
-#endif
+	#endif
+
 	hw_reset(fpc1022);
 	dev_info(dev, "%s: ok\n", __func__);
 
@@ -781,14 +761,14 @@ static int fpc1022_platform_probe(struct platform_device *pldev)
 err_create_sysfs:
 	wakeup_source_unregister(fpc1022->ttw_wl);
 
-/* begin modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 start */
 #ifdef CONFIG_HAS_EARLYSUSPEND
 		if (fpc1022->early_suspend.suspend)
 			unregister_early_suspend(&fpc1022->early_suspend);
 #else
 		fb_unregister_client(&fpc1022->fb_notifier);
 #endif
-/* end modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 end */
 
 err_request_irq:
 	mutex_destroy(&fpc1022->lock);
@@ -819,14 +799,14 @@ static int fpc1022_platform_remove(struct platform_device *pldev)
 	mutex_destroy(&fpc1022->lock);
 	wakeup_source_unregister(fpc1022->ttw_wl);
 
-/* begin modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 start */
 #ifdef CONFIG_HAS_EARLYSUSPEND
 		if (fpc1022->early_suspend.suspend)
 			unregister_early_suspend(&fpc1022->early_suspend);
 #else
 		fb_unregister_client(&fpc1022->fb_notifier);
 #endif
-/* end modify for unlock speed */
+/* K19A code for HQ-145238 by shicheng at 2021.7.12 end */
 
 	input_unregister_device(fpc1022->idev);
 	devm_kfree(dev, fpc1022);
@@ -1053,15 +1033,7 @@ static int __init fpc1022_init(void)
 		return -EINVAL;
 	}
 
-	if (0 != platform_driver_register(&fpc1022_driver)) {
-		printk(KERN_INFO "%s: register platform driver fail\n",
-		       __func__);
-		return -EINVAL;
-	} else
-		printk(KERN_INFO "%s: register platform driver success\n",
-		       __func__);
-
-	/*
+/*
 	   if(0 != spi_register_driver(&spi_driver))
 	   {
 	   printk(KERN_INFO "%s: register spi driver fail\n", __func__);
@@ -1110,6 +1082,13 @@ static int __init fpc1022_init(void)
 	/********xinan_bp for dual_TA end *********/
 
 	}
+	if (0 != platform_driver_register(&fpc1022_driver)) {
+		printk(KERN_INFO "%s: register platform driver fail\n",
+		       __func__);
+		return -EINVAL;
+	} else
+		printk(KERN_INFO "%s: register platform driver success\n",
+		       __func__);
 
 	return 0;
 }

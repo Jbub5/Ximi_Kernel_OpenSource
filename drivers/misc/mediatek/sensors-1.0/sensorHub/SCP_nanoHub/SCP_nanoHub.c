@@ -1,7 +1,6 @@
 /* SCP sensor hub driver
  *
  * Copyright (C) 2016 MediaTek Inc.
- * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -1543,6 +1542,10 @@ int sensor_get_data_from_hub(uint8_t sensorType,
 	case ID_LIGHT:
 		data->time_stamp = data_t->time_stamp;
 		data->light = data_t->light;
+		/*Huaqin modify for HQ-12367 by luozeng at 2021.3.31 start*/
+		data->data[1] = data_t->data[1];
+        printk_ratelimited(KERN_ERR "light: data[0] = %d, data[1] = %d\n", data->light, data->data[1]);
+		/*Huaqin modify for HQ-12367 by luozeng at 2021.3.31 end*/
 		break;
 	case ID_PROXIMITY:
 		data->time_stamp = data_t->time_stamp;

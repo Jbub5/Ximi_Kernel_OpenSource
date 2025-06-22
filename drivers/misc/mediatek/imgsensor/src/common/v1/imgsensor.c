@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2017 MediaTek Inc.
- * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -13,7 +12,7 @@
  */
 #include "imgsensor_cfg_table.h"
 #if defined(MERLIN_MSM_CAMERA_HW_INFO) || defined(LANCELOT_MSM_CAMERA_HW_INFO)\
-|| defined(GALAHAD_MSM_CAMERA_HW_INFO) || defined(SHIVA_MSM_CAMERA_HW_INFO)
+|| defined(GALAHAD_MSM_CAMERA_HW_INFO) || defined(SHIVA_MSM_CAMERA_HW_INFO) || defined(SELENE_MSM_CAMERA_HW_INFO)
 #include "hq_imgsensor_hw_register_info.h"
 #endif
 #include <linux/platform_device.h>
@@ -603,7 +602,7 @@ int imgsensor_set_driver(struct IMGSENSOR_SENSOR *psensor)
 					    drv_idx,
 					    psensor_inst->psensor_name);
 #if defined(MERLIN_MSM_CAMERA_HW_INFO) || defined(LANCELOT_MSM_CAMERA_HW_INFO) \
-|| defined(GALAHAD_MSM_CAMERA_HW_INFO) || defined(SHIVA_MSM_CAMERA_HW_INFO)
+|| defined(GALAHAD_MSM_CAMERA_HW_INFO) || defined(SHIVA_MSM_CAMERA_HW_INFO) || defined(SELENE_MSM_CAMERA_HW_INFO)
 					hq_imgsensor_sensor_hw_register(psensor, psensor_inst);
 #endif
 					ret = drv_idx;

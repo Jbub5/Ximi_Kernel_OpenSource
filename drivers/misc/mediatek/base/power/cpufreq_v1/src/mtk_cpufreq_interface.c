@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2016 MediaTek Inc.
- * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -732,7 +731,7 @@ static int cpumaxfreq_proc_show(struct seq_file *m, void *v)
 	unsigned long freq = 0;
 	/* freq (kHz) */
 	freq = cpufreq_max_freq / 1000;
-	seq_printf(m, "%lu.%02lu", freq / 1000, freq % 100);
+	seq_printf(m, "%lu.%lu", freq / 1000, freq % 100);
 	return 0;
 }
 

@@ -289,7 +289,9 @@ static void ktd_parse_dt(struct device *dev, struct ktd3137_chip *chip)
 
 static int ktd3137_bl_enable_channel(struct ktd3137_chip *chip)
 {
-	int ret;
+	/* Huaqin modify for HQ-140343 by liunianliang at 2021/06/15 start */
+	int ret = 0;
+	/* Huaqin modify for HQ-140343 by liunianliang at 2021/06/15 end */
 	struct ktd3137_bl_pdata *pdata = chip->pdata;
 
 	if (pdata->channel == 0) {
@@ -644,7 +646,9 @@ int ktd_hbm_set(enum backlight_hbm_mode hbm_mode)
 
 int ktd3137_brightness_set(int brightness)
 {
-	LOG_DBG("%s brightness = %d\n", __func__, brightness);
+	/* Huaqin modify for K19A-271 by caogaojie at 2021/07/08 start */
+	//LOG_DBG("%s brightness = %d\n", __func__, brightness);
+	/* Huaqin modify for K19A-271 by caogaojie at 2021/07/08 end */
 
 #ifdef CONFIG_TARGET_PRODUCT_MERLINCOMMON
 	if ((brightness < 5) && (brightness > 2)) {//HQ-61731
@@ -1044,6 +1048,13 @@ static int ktd3137_probe(struct i2c_client *client,
 		return -ENODEV;
 	}
 
+	/* Huaqin modify for HQ-140359 by liunianliang at 2021/06/15 start */
+	chip = devm_kzalloc(&client->dev, sizeof(*chip), GFP_KERNEL);
+	if (!chip) {
+		err = -ENOMEM;
+		goto exit0;
+	}
+
 	client->addr = 0x36;
 	LOG_DBG("probe start!\n");
 	if (!pdata) {
@@ -1057,12 +1068,7 @@ static int ktd3137_probe(struct i2c_client *client,
 	}
 
 	//ktd3137_client = client;
-
-	chip = devm_kzalloc(&client->dev, sizeof(*chip), GFP_KERNEL);
-	if (!chip) {
-		err = -ENOMEM;
-		goto exit0;
-	}
+	/* Huaqin modify for HQ-140359 by liunianliang at 2021/06/15 end */
 
 	chip->client = client;
 	chip->pdata = pdata;

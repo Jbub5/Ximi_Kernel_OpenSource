@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2016 MediaTek Inc.
- * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -107,7 +106,7 @@ do {\
 	}						\
 } while (0)
 
-#define BM_DAEMON_DEFAULT_LOG_LEVEL 3
+#define BM_DAEMON_DEFAULT_LOG_LEVEL 8
 
 enum gauge_hw_version {
 	GAUGE_HW_V1000 = 1000,
@@ -708,7 +707,9 @@ struct mtk_battery {
 
 /*custom related*/
 	int battery_id;
-
+/* Huaqin add for HQ-124361 by miaozhichao at 2021/5/14 start */
+	bool shutdown_delay;
+/* Huaqin add for HQ-124361 by miaozhichao at 2021/5/14 end */
 /*simulator log*/
 	struct simulator_log log;
 

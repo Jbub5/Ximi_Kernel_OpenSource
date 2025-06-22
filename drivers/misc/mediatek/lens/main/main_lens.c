@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2015 MediaTek Inc.
- * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -894,6 +893,14 @@ static int AF_i2c_probe(struct i2c_client *client,
 	CN3927AFJ19_SwitchToPowerDown(g_pstAF_I2Cclient, true); /* Power down mode */
 #endif
 
+ /* Power on vldo28 in advance .
+*  To set GT9764AF  chip power down.
+* If chip is not in power down status,when vldo28 is power on, the chip will cause 0.3ma leakage.
+* If power is off , the chip status will be restored.
+*/
+	AFRegulatorCtrl(0);
+	AFRegulatorCtrl(1);
+	GT9764AF_SwitchToPowerDown(g_pstAF_I2Cclient);
 	LOG_INF("Attached!!\n");
 
 	return 0;

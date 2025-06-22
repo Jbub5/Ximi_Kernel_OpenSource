@@ -1,6 +1,5 @@
 /*
  * Copyright (c) 2015-2019, MICROTRUST Incorporated
- * Copyright (C) 2021 XiaoMi, Inc.
  * All Rights Reserved.
  *
  * This program is free software; you can redistribute it and/or
@@ -17,7 +16,7 @@
 #define TEEI_FUNC_H
 
 #include <teei_ioc.h>
-#define MICROTRUST_FP_SIZE	0x100000
+#define MICROTRUST_FP_SIZE	0x200000
 #define FP_MAJOR		254
 #define DEV_NAME		"teei_fp"
 

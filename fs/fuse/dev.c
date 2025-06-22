@@ -772,7 +772,9 @@ static int fuse_copy_fill(struct fuse_copy_state *cs)
 			if (cs->nr_segs == cs->pipe->buffers)
 				return -EIO;
 
-			page = alloc_page(GFP_HIGHUSER);
+// Rainbow code for HQ-144577 by zhangtisheng at 2021.07.12 09:05 start
+			page = alloc_page(GFP_NOFS | __GFP_HIGHMEM);
+// Rainbow code for HQ-144577 by zhangtisheng at 2021.07.12 09:05 end
 			if (!page)
 				return -ENOMEM;
 
@@ -1091,7 +1093,6 @@ __releases(fiq->waitq.lock)
 	unsigned reqsize = sizeof(ih) + sizeof(arg);
 	int err;
 
-	list_del_init(&req->intr_entry);
 	req->intr_unique = fuse_get_unique(fiq);
 	memset(&ih, 0, sizeof(ih));
 	memset(&arg, 0, sizeof(arg));
@@ -1099,6 +1100,7 @@ __releases(fiq->waitq.lock)
 	ih.opcode = FUSE_INTERRUPT;
 	ih.unique = req->intr_unique;
 	arg.unique = req->in.h.unique;
+	list_del_init(&req->intr_entry);
 
 	spin_unlock(&fiq->waitq.lock);
 	if (nbytes < reqsize)

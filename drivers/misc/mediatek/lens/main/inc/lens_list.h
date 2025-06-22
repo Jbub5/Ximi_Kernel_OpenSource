@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2015 MediaTek Inc.
- * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -261,7 +260,7 @@ extern int GT9764AF_Release(struct inode *a_pstInode, struct file *a_pstFile);
 extern int GT9764AF_PowerDown(struct i2c_client *pstAF_I2Cclient,
 				int *pAF_Opened);
 extern int GT9764AF_GetFileName(unsigned char *pFileName);
-
+extern void GT9764AF_SwitchToPowerDown(struct i2c_client *pstAF_I2Cclient);
 #if 0
 #define FM50AF_SetI2Cclient FM50AF_SetI2Cclient_Main
 #define FM50AF_Ioctl FM50AF_Ioctl_Main

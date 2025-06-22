@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2016 MediaTek Inc.
- * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -54,6 +53,20 @@
 #define TEMP_T0_THRES  0
 #define TEMP_T0_THRES_PLUS_X_DEGREE  0
 #define TEMP_NEG_10_THRES 0
+
+/*K19A HQHW-1022 K19A for jeita out of spec by langjunjun at 2021/7/7 start*/
+#define JEITA_TEMP_MIN_THRESHOLD	64000
+#define JEITA_TEMP_STEP_128MA	128000
+#define JEITA_TEMP_STEP_320MA	320000
+/*K19A HQHW-1022 K19A for jeita out of spec by langjunjun at 2021/7/7 end*/
+
+/*K19A HQ-124114 K19A charger of jeita by wangqi at 2021/4/16 start*/
+#define JEITA_TEMP_T3_TO_T4_CC_CN	(2880000 - JEITA_TEMP_STEP_320MA)
+#define JEITA_TEMP_T2_TO_T3_CC_CN	(3008000 - JEITA_TEMP_STEP_128MA)
+#define JEITA_TEMP_T1_TO_T2_CC_CN	(2880000 - JEITA_TEMP_MIN_THRESHOLD)
+#define JEITA_TEMP_T0_TO_T1_CC_CN	(1152000 - JEITA_TEMP_MIN_THRESHOLD)
+#define JEITA_TEMP_BELOW_T0_CC_CN	(576000 - JEITA_TEMP_MIN_THRESHOLD)
+/*K19A HQ-124114 K19A charger of jeita by wangqi at 2021/4/16 start*/
 
 /* Battery Temperature Protection */
 #define MIN_CHARGE_TEMP  0
@@ -130,4 +143,5 @@
 #define CHG1_INPUT_CURRENT_LIMIT_PE	1600000
 #define CHG2_INPUT_CURRENT_LIMIT_PE	2000000
 #define NON_STANDARD_HVDCP_ICL	1900000
+bool get_pd_status(void);
 #endif /*__MTK_CHARGER_INIT_H__*/

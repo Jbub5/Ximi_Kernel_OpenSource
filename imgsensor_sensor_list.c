@@ -23,7 +23,7 @@
  * 2. This should be the same as
  *     mediatek\custom\common\hal\imgsensor\src\sensorlist.cpp
  */
-#ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+#if 1
 struct IMGSENSOR_INIT_FUNC_LIST kdSensorList[MAX_NUM_OF_SUPPORT_SENSOR] = {
 /*K19A  main*/
 #if defined(OV50C40_OFILM_MAIN_MIPI_RAW)

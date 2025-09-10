@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2015 MediaTek Inc.
- * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -356,7 +355,18 @@ extern struct LCM_DRIVER ft8756_fhdp_dsi_vdo_auo_rt4801_lcm_drv;
 
 extern struct LCM_DRIVER nt36672D_fhdp_dsi_vdo_dijing_j19_lcm_drv;
 extern struct LCM_DRIVER nt36672D_fhdp_dsi_vdo_tianma_lcm_drv;
+extern struct LCM_DRIVER nt36672c_fhdp_dsi_vdo_90hz_shenchao_lcm_drv;
+extern struct LCM_DRIVER nt36672c_fhdp_dsi_vdo_90hz_shenchao_6382_lcm_drv;
+/*K19A HQ-123492 K19A LCD bring up by caogaojie at 2021/3/27 start*/
+extern struct LCM_DRIVER dsi_panel_k19a_36_02_0a_dsc_vdo_lcm_drv;
+/*K19A HQ-123492 K19A LCD bring up by caogaojie at 2021/3/27 end*/
 
+/* Huaqin add for HQ-123491 by caogaojie at 2021/3/29 start */
+extern struct LCM_DRIVER dsi_panel_k19a_43_02_0b_dsc_vdo_lcm_drv;
+/* Huaqin add for HQ-123491 by caogaojie at 2021/3/29 end */
+/* Huaqin add for HQ-148596 by caogaojie at 2021/9/27 start */
+extern struct LCM_DRIVER dsi_panel_k19a_36_03_0c_dsc_vdo_lcm_drv;
+/* Huaqin add for HQ-148596 by caogaojie at 2021/9/27 end */
 #ifdef BUILD_LK
 extern void mdelay(unsigned long msec);
 #endif

@@ -1008,6 +1008,10 @@ KBUILD_CFLAGS += -DFACTORY_VERSION_ENABLE
 endif
 # =============FACTORY==================================
 
+ifeq ($(strip $(ENABLE_MIUI_DEBUGGING)), true)
+KBUILD_CFLAGS += -DENABLE_MIUI_DEBUGGING
+endif
+
 # =============PROJECT==================================
 # Add macros by TARGET_PRODUCT for different projects
 ifeq ($(CONFIG_TARGET_PRODUCT_LANCELOTCOMMON),y)
@@ -1019,6 +1023,9 @@ KBUILD_CFLAGS += -DTARGET_PRODUCT_SHIVA
 else ifeq ($(CONFIG_TARGET_PRODUCT_MERLINCOMMON),y)
 # Define macros here only for merlin common project
 KBUILD_CFLAGS += -DTARGET_PRODUCT_MERLINCOMMON
+else ifeq ($(CONFIG_TARGET_PRODUCT_SELENECOMMON),y)
+# Define macros here only for selene project
+KBUILD_CFLAGS += -DTARGET_PRODUCT_SELENE
 endif
 # =============PROJECT==================================
 

@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2018 MediaTek Inc.
+ * Copyright (C) 2021 XiaoMi, Inc.
  * Author: Dennis YC Hsieh <dennis-yc.hsieh@mediatek.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -14,6 +15,8 @@
 
 #ifndef _DT_BINDINGS_GCE_MT6768_H
 #define _DT_BINDINGS_GCE_MT6768_H
+
+#include "mt6382-gce.h"
 
 /* assign timeout 0 also means default */
 #define CMDQ_NO_TIMEOUT		0xffffffff

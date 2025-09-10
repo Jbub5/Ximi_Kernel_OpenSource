@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2015 MediaTek Inc.
- * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -44,6 +43,10 @@ static HW_INFO(HWID_NFC, nfc);
 static HW_INFO(HWID_FP, fingerprint);
 //static HW_INFO(HWID_TEE,tee);
 static HW_INFO(HWID_PCBA, pcba_config);
+static HW_INFO(HWID_PMIC_VERSION, pmic_version);
+/*K19A code for WXYFB-1001 by zhangpeng at 2021.3.19 start*/
+static HW_INFO(HWID_AUDIO, audio_PA);
+/*K19A code for WXYFB-1001 by zhangpeng at 2021.3.19 end*/
 
 #if defined(TARGET_PRODUCT_LANCELOT) || defined(TARGET_PRODUCT_SHIVA)
 
@@ -70,6 +73,94 @@ struct pcba_info pcba[] = {
 	{PCBA_J19P_POCO_MP_INDIA, "PCBA_J19P_POCO_MP_INDIA"},
 
 };
+#elif defined(TARGET_PRODUCT_SELENE)
+/* Huaqin modify for HQ-147481 by liunianliang at 2021/07/27 start */
+struct pcba_info pcba[] = {
+	{PCBA_K19A_P0_GLOBAL, "PCBA_K19A_P0_GLOBAL"},
+	{PCBA_K19A_P0_LA, "PCBA_K19A_P0_LA"},
+	{PCBA_K19B_P0_IN, "PCBA_K19B_P0_IN"},
+	{PCBA_K19B_P0_CN, "PCBA_K19B_P0_CN"},
+	{PCBA_K19D_P0_GLOBAL, "PCBA_K19D_P0_GLOBAL"},
+	{PCBA_K19C_P0_GLOBAL, "PCBA_K19C_P0_GLOBAL"},
+	{PCBA_K19C_P0_IN, "PCBA_K19C_P0_IN"},
+	{PCBA_K19L_P0_LA, "PCBA_K19L_P0_LA"},
+	{PCBA_K19S_P0_CN, "PCBA_K19S_P0_CN"},
+	{PCBA_K19S_P0_GLOBAL, "PCBA_K19S_P0_GLOBAL"},
+	{PCBA_K19T_P0_IN, "PCBA_K19T_P0_IN"},
+	{PCBA_K19U_P0_GLOBAL, "PCBA_K19U_P0_GLOBAL"},
+	{PCBA_K19V_P0_LA, "PCBA_K19V_P0_LA"},
+
+	{PCBA_K19A_P0_1_GLOBAL, "PCBA_K19A_P0-1_GLOBAL"},
+	{PCBA_K19A_P0_1_LA, "PCBA_K19A_P0-1_LA"},
+	{PCBA_K19B_P0_1_IN, "PCBA_K19B_P0-1_IN"},
+	{PCBA_K19B_P0_1_CN, "PCBA_K19B_P0-1_CN"},
+	{PCBA_K19D_P0_1_GLOBAL, "PCBA_K19D_P0-1_GLOBAL"},
+	{PCBA_K19C_P0_1_GLOBAL, "PCBA_K19C_P0-1_GLOBAL"},
+	{PCBA_K19C_P0_1_IN, "PCBA_K19C_P0-1_IN"},
+	{PCBA_K19L_P0_1_LA, "PCBA_K19L_P0-1_LA"},
+	{PCBA_K19S_P0_1_CN, "PCBA_K19S_P0-1_CN"},
+	{PCBA_K19S_P0_1_GLOBAL, "PCBA_K19S_P0-1_GLOBAL"},
+	{PCBA_K19T_P0_1_IN, "PCBA_K19T_P0-1_IN"},
+	{PCBA_K19U_P0_1_GLOBAL, "PCBA_K19U_P0-1_GLOBAL"},
+	{PCBA_K19V_P0_1_LA, "PCBA_K19V_P0-1_LA"},
+
+	{PCBA_K19A_P1_GLOBAL, "PCBA_K19A_P1_GLOBAL"},
+	{PCBA_K19A_P1_LA, "PCBA_K19A_P1_LA"},
+	{PCBA_K19B_P1_IN, "PCBA_K19B_P1_IN"},
+	{PCBA_K19B_P1_CN, "PCBA_K19B_P1_CN"},
+	{PCBA_K19D_P1_GLOBAL, "PCBA_K19D_P1_GLOBAL"},
+	{PCBA_K19C_P1_GLOBAL, "PCBA_K19C_P1_GLOBAL"},
+	{PCBA_K19C_P1_IN, "PCBA_K19C_P1_IN"},
+	{PCBA_K19L_P1_LA, "PCBA_K19L_P1_LA"},
+	{PCBA_K19S_P1_CN, "PCBA_K19S_P1_CN"},
+	{PCBA_K19S_P1_GLOBAL, "PCBA_K19S_P1_GLOBAL"},
+	{PCBA_K19T_P1_IN, "PCBA_K19T_P1_IN"},
+	{PCBA_K19U_P1_GLOBAL, "PCBA_K19U_P1_GLOBAL"},
+	{PCBA_K19V_P1_LA, "PCBA_K19V_P1_LA"},
+
+	{PCBA_K19A_P1_1_GLOBAL, "PCBA_K19A_P1-1_GLOBAL"},
+	{PCBA_K19A_P1_1_LA, "PCBA_K19A_P1-1_LA"},
+	{PCBA_K19B_P1_1_IN, "PCBA_K19B_P1-1_IN"},
+	{PCBA_K19B_P1_1_CN, "PCBA_K19B_P1-1_CN"},
+	{PCBA_K19D_P1_1_GLOBAL, "PCBA_K19D_P1-1_GLOBAL"},
+	{PCBA_K19C_P1_1_GLOBAL, "PCBA_K19C_P1-1_GLOBAL"},
+	{PCBA_K19C_P1_1_IN, "PCBA_K19C_P1-1_IN"},
+	{PCBA_K19L_P1_1_LA, "PCBA_K19L_P1-1_LA"},
+	{PCBA_K19S_P1_1_CN, "PCBA_K19S_P1-1_CN"},
+	{PCBA_K19S_P1_1_GLOBAL, "PCBA_K19S_P1-1_GLOBAL"},
+	{PCBA_K19T_P1_1_IN, "PCBA_K19T_P1-1_IN"},
+	{PCBA_K19U_P1_1_GLOBAL, "PCBA_K19U_P1-1_GLOBAL"},
+	{PCBA_K19V_P1_1_LA, "PCBA_K19V_P1-1_LA"},
+
+	{PCBA_K19A_P2_GLOBAL, "PCBA_K19A_P2_GLOBAL"},
+	{PCBA_K19A_P2_LA, "PCBA_K19A_P2_LA"},
+	{PCBA_K19B_P2_IN, "PCBA_K19B_P2_IN"},
+	{PCBA_K19B_P2_CN, "PCBA_K19B_P2_CN"},
+	{PCBA_K19D_P2_GLOBAL, "PCBA_K19D_P2_GLOBAL"},
+	{PCBA_K19C_P2_GLOBAL, "PCBA_K19C_P2_GLOBAL"},
+	{PCBA_K19C_P2_IN, "PCBA_K19C_P2_IN"},
+	{PCBA_K19L_P2_LA, "PCBA_K19L_P2_LA"},
+	{PCBA_K19S_P2_CN, "PCBA_K19S_P2_CN"},
+	{PCBA_K19S_P2_GLOBAL, "PCBA_K19S_P2_GLOBAL"},
+	{PCBA_K19T_P2_IN, "PCBA_K19T_P2_IN"},
+	{PCBA_K19U_P2_GLOBAL, "PCBA_K19U_P2_GLOBAL"},
+	{PCBA_K19V_P2_LA, "PCBA_K19V_P2_LA"},
+
+	{PCBA_K19A_MP_GLOBAL, "PCBA_K19A_MP_GLOBAL"},
+	{PCBA_K19A_MP_LA, "PCBA_K19A_MP_LA"},
+	{PCBA_K19B_MP_IN, "PCBA_K19B_MP_IN"},
+	{PCBA_K19B_MP_CN, "PCBA_K19B_MP_CN"},
+	{PCBA_K19D_MP_GLOBAL, "PCBA_K19D_MP_GLOBAL"},
+	{PCBA_K19C_MP_GLOBAL, "PCBA_K19C_MP_GLOBAL"},
+	{PCBA_K19C_MP_IN, "PCBA_K19C_MP_IN"},
+	{PCBA_K19L_MP_LA, "PCBA_K19L_MP_LA"},
+	{PCBA_K19S_MP_CN, "PCBA_K19S_MP_CN"},
+	{PCBA_K19S_MP_GLOBAL, "PCBA_K19S_MP_GLOBAL"},
+	{PCBA_K19T_MP_IN, "PCBA_K19T_MP_IN"},
+	{PCBA_K19U_MP_GLOBAL, "PCBA_K19U_MP_GLOBAL"},
+	{PCBA_K19V_MP_LA, "PCBA_K19V_MP_LA"},
+};
+/* Huaqin modify for HQ-147481 by liunianliang at 2021/07/27 end */
 #else
 struct pcba_info pcba[] = {
 
@@ -122,7 +213,11 @@ static struct attribute *huaqin_attrs[] = {
 	&hw_info_nfc.attr,
 	&hw_info_fingerprint.attr,
 	&hw_info_pcba_config.attr,
+	&hw_info_pmic_version.attr,
 //	&hw_info_tee.attr,
+/*K19A code for WXYFB-1001 by zhangpeng at 2021.3.19 start*/
+	&hw_info_audio_PA.attr,
+/*K19A code for WXYFB-1001 by zhangpeng at 2021.3.19 end*/
 	NULL
 };
 
@@ -170,6 +265,8 @@ static ssize_t huaqin_show(struct kobject *kobj, struct attribute *a, char *buf)
 		}
 
 		count = sprintf(buf, "%s\n", "PCBA_UNKONW");
+		} else if (HWID_PMIC_VERSION == hw->hw_id) {
+			count = sprintf(buf, "%s\n", "PMIC: MT6358 V1.0");
 		} else{
 
 		if (0 == hw->hw_exist) {
@@ -313,7 +410,9 @@ err:
 
 }
 
-
+/*K19A code for WXYFB-1001 by zhangpeng at 2021.3.19 start*/
+static char *audio_pa;
+/*K19A code for WXYFB-1001 by zhangpeng at 2021.3.19 end*/
 int hq_regiser_hw_info(enum hardware_id id, char *device_name)
 {
 	int ret = 0;
@@ -350,6 +449,13 @@ int hq_regiser_hw_info(enum hardware_id id, char *device_name)
 				ret = -4;
 				goto err;
 			}
+/*K19A code for WXYFB-1001 by zhangpeng at 2021.3.19 start*/
+			switch (id) {
+			case HWID_AUDIO:
+				audio_pa = device_name;
+				break;
+			}
+/*K19A code for WXYFB-1001 by zhangpeng at 2021.3.19 end*/
 
 			switch (hw->hw_id) {
 				/*
@@ -469,6 +575,13 @@ static int __init hq_harware_init(void)
 	return 0;
 }
 
+/*K19A code for WXYFB-1001 by zhangpeng at 2021.3.19 start*/
+char *get_audio_pa_vendor(void)
+{
+	return audio_pa;
+}
+EXPORT_SYMBOL(get_audio_pa_vendor);
+/*K19A code for WXYFB-1001 by zhangpeng at 2021.3.19 end*/
 core_initcall(hq_harware_init);
 MODULE_AUTHOR("KaKa Ni <nigang@huaqin.com>");
 MODULE_DESCRIPTION("Huaqin Hardware Info Driver");

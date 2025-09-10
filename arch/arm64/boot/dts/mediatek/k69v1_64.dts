@@ -38,7 +38,11 @@
 	atag,videolfb-fps= <6000>;
 	atag,videolfb-vramSize= <0x017e8000>;
 	atag,videolfb-lcmname=
+#ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+		"nt36672c_fhdp_dsi_vdo_60hz_shenchao_wo_dsc_lcm_drv";
+#else
 		"hx83112b_fhdp_dsi_cmd_auo_rt5081_drv";
+#endif
 };
 
 &odm {
@@ -499,15 +503,41 @@
 			pinmux = <PINMUX_GPIO44__FUNC_DSI_TE>;
 		};
 	};
+
+#ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+	mtkfb_pins_6382_rst_out1_gpio: 6382_rst_out1_gpio {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO91__FUNC_GPIO91>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	mtkfb_pins_6382_rst_out0_gpio: 6382_rst_out0_gpio {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO91__FUNC_GPIO91>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+#endif
 };
 
 &mtkfb {
 	pinctrl-names =
 		"lcm_rst_out1_gpio", "lcm_rst_out0_gpio",
+#ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+		"mode_te_te", "6382_rst_out1_gpio", "6382_rst_out0_gpio";
+#else
 		"mode_te_te";
+#endif
 	pinctrl-0 = <&mtkfb_pins_lcm_rst_out1_gpio>;
 	pinctrl-1 = <&mtkfb_pins_lcm_rst_out0_gpio>;
 	pinctrl-2 = <&mtkfb_pins_lcm_dsi_te>;
+#ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+	pinctrl-3 = <&mtkfb_pins_6382_rst_out1_gpio>;
+	pinctrl-4 = <&mtkfb_pins_6382_rst_out0_gpio>;
+#endif
 	status = "okay";
 };
 
@@ -1408,6 +1438,21 @@
 
 };
 
+#ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+&spi1 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	spislv@2 {
+		compatible = "mediatek,hifi4dsp-spi";
+		spi-max-frequency = <1000000>;
+		spi-pin-mode = <0>;
+		/*tick-dly = <1>;*/
+		ick-dly = <0>;
+		reg = <0>;
+		status = "okay";
+	};
+};
+#endif
 /* DISPSYS GPIO standardization end*/
 
 #include "mediatek/merlin/cust.dtsi"

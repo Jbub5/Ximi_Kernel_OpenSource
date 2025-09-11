@@ -30,6 +30,11 @@ extern unsigned int gc02m1_sunny_read_otp_info(struct i2c_client *client,
 	unsigned int size);
 #endif
 
+#ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+extern unsigned int gc02m1_read_otp_info(struct i2c_client *client, unsigned int addr, unsigned char *data, unsigned int size);
+extern unsigned int ov02b1b_read_otp_info(struct i2c_client *client, unsigned int addr, unsigned char *data, unsigned int size);
+#endif
+
 #ifdef CONFIG_TARGET_PRODUCT_LANCELOTCOMMON
 #if defined(OV8856_QTECH_FRONT_MIPI_RAW)
 extern unsigned int ov8856_qtech_front_read_otp_info(struct i2c_client *client, unsigned int addr, unsigned char *data, unsigned int size);
@@ -44,6 +49,30 @@ extern unsigned int ov8856_qtech_front_read_otp_info(struct i2c_client *client, 
 
 struct stCAM_CAL_LIST_STRUCT g_camCalList[] = {
 	/*Below is commom sensor */
+#ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+	{OV50C40_OFILM_MAIN_SENSOR_ID, 0xA2, Common_read_region},
+	{S5KJN1_OFILM_MAIN_SENSOR_ID, 0xA2, Common_read_region},
+	{OV50C40_QTECH_MAIN_SENSOR_ID, 0xA2, Common_read_region},
+	{GC02M1_MACRO_AAC_SENSOR_ID, 0xA4, Common_read_region},
+	{GC02M1_MACRO_SY_SENSOR_ID, 0xA4, Common_read_region},
+	{IMX355_SUNNY_ULTRA_SENSOR_ID, 0xA0, Common_read_region},
+	{IMX355_AAC_ULTRA_SENSOR_ID, 0xA0, Common_read_region},
+	{OV8856_OFILM_FRONT_SENSOR_ID, 0xA2, Common_read_region},
+	{OV8856_AAC_FRONT_SENSOR_ID, 0xA2, Common_read_region},
+	{GC02M1B_SENSOR_ID1, 0xA2, gc02m1_read_otp_info},
+	{OV02B1B_OFILM_SENSOR_ID, 0xA2, ov02b1b_read_otp_info},
+	{OV50C40_OFILM_MAIN_SENSOR_INDIA_ID, 0xA2, Common_read_region},
+	{S5KJN1_OFILM_MAIN_SENSOR_INDIA_ID, 0xA2, Common_read_region},
+	{OV50C40_QTECH_MAIN_SENSOR_INDIA_ID, 0xA2, Common_read_region},
+	{GC02M1_MACRO_AAC_SENSOR_INDIA_ID, 0xA4, Common_read_region},
+	{GC02M1_MACRO_SY_SENSOR_INDIA_ID, 0xA4, Common_read_region},
+	{IMX355_SUNNY_ULTRA_SENSOR_INDIA_ID, 0xA0, Common_read_region},
+	{IMX355_AAC_ULTRA_SENSOR_INDIA_ID, 0xA0, Common_read_region},
+	{OV8856_OFILM_FRONT_SENSOR_INDIA_ID, 0xA2, Common_read_region},
+	{OV8856_AAC_FRONT_SENSOR_INDIA_ID, 0xA2, Common_read_region},
+	{GC02M1B_SUNNY_SENSOR_INDIA_ID, 0xA2, gc02m1_read_otp_info},
+	{OV02B1B_OFILM_SENSOR_INDIA_ID, 0xA2, ov02b1b_read_otp_info},
+#endif
 #ifdef CONFIG_TARGET_PRODUCT_LANCELOTCOMMON
 	{OV13B10_OFILM_SENSOR_ID, 0xA2, Common_read_region},
 	{OV13B10_QTECH_SENSOR_ID, 0xA2, Common_read_region},

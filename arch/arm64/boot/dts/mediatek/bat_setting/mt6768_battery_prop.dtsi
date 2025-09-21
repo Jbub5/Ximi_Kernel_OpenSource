@@ -26,7 +26,9 @@ bat_gm30: battery{
 	KEEP_100_PERCENT = <(1)>;					/*	The ui_soc will keep 100% until SOC drop X percents after unplugged*/
 
 #ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+/*K19A HQ-123457 K19A charger of profile by wangqi at 2021/4/22 start*/
 	R_FG_VALUE = <(5)>;						/*	R_sense resistance*/
+/*K19A HQ-123457 K19A charger of profile by wangqi at 2021/4/22 end*/
 #else
 	R_FG_VALUE = <(10)>;						/*	R_sense resistance*/
 #endif
@@ -88,7 +90,9 @@ bat_gm30: battery{
 	MULTI_TEMP_GAUGE0 = <(1)>;					/* Multi gauge0 enable*/
 
 #ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+/*K19A HQ-123457 K19A charger of profile by wangqi at 2021/4/22 start*/
 #include "mt6769_battery_table_ext.dtsi"
+/*K19A HQ-123457 K19A charger of profile by wangqi at 2021/4/22 end*/
 #else
 #include "mt6768_battery_table.dtsi"
 #endif

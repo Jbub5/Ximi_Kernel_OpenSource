@@ -1424,7 +1424,9 @@ defined(CONFIG_MTK_CAM_SECURITY_SUPPORT)
 	swtp: swtp {
 		compatible = "mediatek, swtp-eint";
 #ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+/*Huaqin modify for HQ-123513 by shiwenlong at 2021.4.01 start*/
 		swtp-gpio = <&pio 56 0>;
+/*Huaqin modify for HQ-123513 by shiwenlong at 2021.4.01 end*/
 #else
 		ant_sw_gpios = <&pio 72 0>;
 #endif
@@ -1441,11 +1443,19 @@ defined(CONFIG_MTK_CAM_SECURITY_SUPPORT)
 	};
 	simtray {
 		compatible = "xiaomi,simtray-status";
+#ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+		/* Huaqin modify for HQ-124268 by liunianliang at 2021/08/03 start */
+		status-gpio = <&pio 47 0>;
+		/* Huaqin modify for HQ-124268 by liunianliang at 2021/08/03 end */
+#else
 		status-gpio = <&pio 46 0>;
+#endif
 	};
+/*K19A HQ-123457 K19A charger of profile by wangqi at 2021/4/22 start*/
 #if (CONFIG_MTK_GAUGE_VERSION == 30)
 	#include "mediatek/bat_setting/mt6768_battery_prop.dtsi"
 #endif
+/*K19A HQ-123457 K19A charger of profile by wangqi at 2021/4/22 end*/
 
 	md_ccif3@1023f000 {
 		compatible = "mediatek,md_ccif3";
@@ -2039,7 +2049,13 @@ defined(CONFIG_MTK_CAM_SECURITY_SUPPORT)
 
 	spi0:spi0@1100a000 {
 		compatible = "mediatek,mt6765-spi";
+#ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+/*K19A coad for HQ-147450 by feiwen at 2021/7/23 start*/
+		mediatek,pad-select = <0>,<1>;
+/*K19A coad for HQ-147450 by feiwen at 2021/7/23 end*/
+#else
 		mediatek,pad-select = <0>;
+#endif
 		reg = <0 0x1100a000 0 0x1000>;
 		interrupts = <GIC_SPI 138 IRQ_TYPE_LEVEL_LOW>;
 		clocks = <&topckgen CLK_TOP_SYSPLL3_D2>,
@@ -3455,6 +3471,7 @@ defined(CONFIG_MTK_CAM_SECURITY_SUPPORT)
 		compatible = "mediatek,mt-charger";
 	};
 #ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+/*K19A WXYFB-996 K19A secret battery bring up by miaozhichao at 2021/3/26 start*/
 	onewire_gpio: onewire_gpio {
 		compatible = "xiaomi,onewire_gpio";
 	};
@@ -3462,6 +3479,7 @@ defined(CONFIG_MTK_CAM_SECURITY_SUPPORT)
 	maxim_ds28e16: maxim_ds28e16 {
 		compatible = "maxim,ds28e16";
 	};
+/*K19A WXYFB-996 K19A secret battery bring up by miaozhichao at 2021/3/26 end*/
 #endif
 	lk_charger: lk_charger {
 		compatible = "mediatek,lk_charger";
@@ -3473,7 +3491,11 @@ defined(CONFIG_MTK_CAM_SECURITY_SUPPORT)
 		fast_charge_voltage = <3000000>;
 
 		/* charging current */
+/*K19A HQHW-881 K19A charger of 2.5v by wangqi at 2021/5/20 start*/
+/* Huaqin add for K19AFAC-33 by wangqi at 2021/6/13 start */
 		usb_charger_current = <500000>;
+/* Huaqin add for K19AFAC-33 by wangqi at 2021/6/13 end */
+/*K19A HQHW-881 K19A charger of 2.5v by wangqi at 2021/5/20 end*/
 		ac_charger_current = <2050000>;
 		ac_charger_input_current = <3200000>;
 		non_std_ac_charger_current = <500000>;

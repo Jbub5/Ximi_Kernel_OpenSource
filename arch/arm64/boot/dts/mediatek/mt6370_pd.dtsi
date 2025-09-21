@@ -28,8 +28,10 @@
 		mt-tcpc,notifier_supply_num = <2>;
 #endif
 #ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+/* Huaqin modify for HQ-123199 by shiwenlong at 2021/4/4 start */
 		mt6370pd,intr_gpio = <&pio 41 0x0>;
 		mt6370pd,intr_gpio_num = <41>;
+/* Huaqin modify for HQ-123199 by shiwenlong at 2021/4/4 end */
 #else
 		mt6370pd,intr_gpio = <&pio 24 0x0>;
 		mt6370pd,intr_gpio_num = <24>;

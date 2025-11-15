@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2015 MediaTek Inc.
+ * Copyright (C) 2021 XiaoMi, Inc.
  * Author: Leilk Liu <leilk.liu@mediatek.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -936,6 +937,7 @@ static int mtk_spi_probe(struct platform_device *pdev)
 		goto err_disable_runtime_pm;
 	}
 
+	printk("[%s-%d] run to here\n", __func__, __LINE__);
 	if (mdata->dev_comp->need_pad_sel) {
 		if (mdata->pad_num != master->num_chipselect) {
 			dev_err(&pdev->dev,

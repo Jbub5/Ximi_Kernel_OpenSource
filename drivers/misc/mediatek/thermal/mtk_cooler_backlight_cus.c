@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 MediaTek Inc.
+ * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -56,9 +57,10 @@ static int mtk_cl_backlight_set_cur_state
 {
 	int enable = (state == MAX_BACKLIGHT_BRIGHTNESS) ? 0 : 1;
 
+	printk("[%s]: --lyd_thmal, set max brightness = %d\n", __func__, state);
 	setMaxbrightness(state, enable);
 	g_backlight_level = state;
-	mtk_cooler_backlight_dprintk("%s: %d\n", g_backlight_level);
+	mtk_cooler_backlight_dprintk("%u\n", g_backlight_level);
 
 	return 0;
 }

@@ -1464,7 +1464,7 @@ void do_sw_jeita_state_machine(struct charger_manager *info)
 				info->data.temp_t2_thres);
 
 			sw_jeita->sm = TEMP_T1_TO_T2;
-#endif
+#ifndef CONFIG_TARGET_PRODUCT_SELENECOMMON
 		}
 #endif
 	} else if (info->battery_temp >= info->data.temp_t0_thres) {

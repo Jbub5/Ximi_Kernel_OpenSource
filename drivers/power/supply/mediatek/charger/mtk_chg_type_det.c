@@ -134,7 +134,9 @@ static void dump_charger_name(enum charger_type type)
 	case APPLE_2_1A_CHARGER:
 	case APPLE_1_0A_CHARGER:
 	case APPLE_0_5A_CHARGER:
+#ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
 	case HVDCP_CHARGER:
+#endif
 		pr_info("%s: charger type: %d, %s\n", __func__, type,
 			mtk_chg_type_name[type]);
 		break;
@@ -649,7 +651,9 @@ static enum power_supply_property mt_usb_properties[] = {
 	POWER_SUPPLY_PROP_REVERSE_CHG_OTG,
 	POWER_SUPPLY_PROP_REVERSE_CHG_STATUS,
 #endif
+#ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
 	POWER_SUPPLY_PROP_QUICK_CHARGE_TYPE,
+#endif
 };
 
 static enum power_supply_property mt_main_properties[] = {

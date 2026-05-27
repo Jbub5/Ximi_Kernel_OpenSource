@@ -199,6 +199,18 @@ static int parse_audio_format_rates_v1(struct snd_usb_audio *chip, struct audiof
 			    (chip->usb_id == USB_ID(0x041e, 0x4064) ||
 			     chip->usb_id == USB_ID(0x041e, 0x4068)))
 				rate = 8000;
+#ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+                  if(chip->usb_id == USB_ID(0x12D1, 0x3A07)) {
+ 			 pr_info("%s format=0x%x, rate=%d\n", __func__, fp->formats, rate);
+
+                        {
+                                if (!(fp->formats & (SNDRV_PCM_FORMAT_U16_BE | SNDRV_PCM_FORMAT_U16_LE | SNDRV_PCM_FORMAT_S16_LE | SNDRV_PCM_FORMAT_S16_BE)))
+                                        continue;
+                               if (rate > 48000)
+                                        continue;
+                       }
+                  }
+#endif
 			/* Huawei headset can't support 96kHz fully */
 			if (rate == 96000 &&
 			    chip->usb_id == USB_ID(0x12d1, 0x3a07) &&
@@ -308,6 +320,18 @@ static int parse_uac2_sample_rate_range(struct snd_usb_audio *chip,
 		}
 
 		for (rate = min; rate <= max; rate += res) {
+#ifdef CONFIG_TARGET_PRODUCT_SELENECOMMON
+               if(chip->usb_id == USB_ID(0x12D1, 0x3A07)) {
+ 		pr_info("%s format=0x%x, rate=%d\n", __func__, fp->formats, rate);
+
+               {
+                                if (!(fp->formats & (SNDRV_PCM_FORMAT_U16_BE | SNDRV_PCM_FORMAT_U16_LE | SNDRV_PCM_FORMAT_S16_LE | SNDRV_PCM_FORMAT_S16_BE)))
+                                        break;
+                                if (rate > 48000)
+                                        break;
+               }
+              }
+#endif
 			/* Filter out invalid rates on Focusrite devices */
 			if (USB_ID_VENDOR(chip->usb_id) == 0x1235 &&
 			    !focusrite_valid_sample_rate(chip, fp, rate))
